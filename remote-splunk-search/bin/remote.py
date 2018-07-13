@@ -39,7 +39,7 @@ class RemoteCommand(GeneratingCommand):
         return results
 
     def generate(self):
-        results = self.__get_data(self.query, self.host,
+        results = self.__get_data("search " + self.query, self.host,
                                   self.username, self.password, self.port)
         return results
 
