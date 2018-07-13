@@ -6,7 +6,7 @@ This app lets you run a Splunk search on a remote Splunk server within your own 
 
 Basic usage:
 ```
-| remote host="mysplunk2.com" query="index=main | head 50 | table _time host _raw"
+| remote host="mysplunk2.com" query="index=main | head 50 | table _time host _raw" username="user" password="changeme"
 ```
 
 ## Options
