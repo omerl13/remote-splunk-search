@@ -28,7 +28,10 @@ class RemoteCommand(GeneratingCommand):
         exportsearch_results = service.jobs.export(
             query, **kwargs_blockingsearch)
         r = exportsearch_results.read()
-        r = r.split(bytes('\n', 'utf-8'))
+        if sys.version_info[0] < 3:
+            r = r.split('\n')
+        else:
+            r = r.split(bytes('\n', 'utf-8'))
         results = []
         try:
             for i in r[:-1]:
@@ -38,7 +41,7 @@ class RemoteCommand(GeneratingCommand):
             pass
         return results
 
-    def formatQuery(query):
+    def formatQuery(self, query):
         """
         Format query to fit the Splunk UI syntax 
         (default to `search`, other commands require a leading pipeline)
