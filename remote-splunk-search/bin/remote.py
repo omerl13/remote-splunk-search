@@ -15,7 +15,7 @@ class RemoteCommand(GeneratingCommand):
 
     def __get_data(self, query, host, username, password, token, port):
         if (not username or not password) and not token:
-            raise 'No credentials were provided (`username` and `password` / `token`)'
+            raise Exception('No credentials were provided (`username` and `password` / `token`)')
 
         if token:
             service = client.connect(
