@@ -8,16 +8,26 @@ from splunklib import client
 class RemoteCommand(GeneratingCommand):
     query = Option(require=True)
     host = Option(require=True)
-    username = Option(require=True)
-    password = Option(require=True)
+    username = Option(require=False)
+    password = Option(require=False)
+    token = Option(require=False)
     port = Option(require=False, default="8089")
 
-    def __get_data(self, query, host, username, password, port):
-        service = client.connect(
-            host=host,
-            port=port,
-            username=username,
-            password=password)
+    def __get_data(self, query, host, username, password, token, port):
+        if (not username or not password) and not token:
+            raise Exception('No credentials were provided (`username` and `password` / `token`)')
+
+        if token:
+            service = client.connect(
+                host=host,
+                port=port,
+                splunkToken=token)
+        else:
+            service = client.connect(
+                host=host,
+                port=port,
+                username=username,
+                password=password)
 
         # Get the collection of jobs
         jobs = service.jobs
@@ -56,7 +66,7 @@ class RemoteCommand(GeneratingCommand):
 
     def generate(self):
         results = self.__get_data(self.formatQuery(self.query), self.host,
-                                  self.username, self.password, self.port)
+                                  self.username, self.password, self.token, self.port)
         return results
 
 
