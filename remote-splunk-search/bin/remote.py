@@ -52,7 +52,7 @@ class RemoteCommand(GeneratingCommand):
             return searchableQuery[1:]
 
     def generate(self):
-        results = self.__get_data(self.formatQuery(this.query), self.host,
+        results = self.__get_data(self.formatQuery(self.query), self.host,
                                   self.username, self.password, self.port)
         return results
 
