@@ -28,7 +28,7 @@ class RemoteCommand(GeneratingCommand):
         exportsearch_results = service.jobs.export(
             query, **kwargs_blockingsearch)
         r = exportsearch_results.read()
-        r = r.split('\n')
+        r = r.split(bytes('\n', 'utf-8'))
         results = []
         try:
             for i in r[:-1]:
