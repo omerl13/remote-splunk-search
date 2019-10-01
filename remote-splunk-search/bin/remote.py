@@ -38,8 +38,21 @@ class RemoteCommand(GeneratingCommand):
             pass
         return results
 
+    def formatQuery(query):
+        """
+        Format query to fit the Splunk UI syntax 
+        (default to `search`, other commands require a leading pipeline)
+        """
+        searchableQuery = query.lstrip()
+        if searchableQuery[0] != "|":
+            # In case of a regular `search` query
+            return 'search ' + searchableQuery
+        else:
+            # In case of a different generating command - remove the leading `|`
+            return searchableQuery[1:]
+
     def generate(self):
-        results = self.__get_data("search " + self.query, self.host,
+        results = self.__get_data(self.formatQuery(this.query), self.host,
                                   self.username, self.password, self.port)
         return results
 
