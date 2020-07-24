@@ -24,4 +24,4 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Pack app as tgz
-      run: tar -zcvf remote-splunk-search.tgz remote-splunk-search
+      run: tar -zcf remote-splunk-search.tgz remote-splunk-search
