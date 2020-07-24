@@ -25,3 +25,10 @@ jobs:
     # Runs a single command using the runners shell
     - name: Pack app as tgz
       run: tar -zcf remote-splunk-search.tgz remote-splunk-search
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        # Artifact name
+        name: remote-splunk-search.tgz
+        # A file, directory or wildcard pattern that describes what to upload
+        path: remote-splunk-search.tgz
